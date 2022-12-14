@@ -2,8 +2,10 @@ package com.example.dz_3_3.service;
 
 import com.example.dz_3_3.model.Faculty;
 import com.example.dz_3_3.repository.FacultyRepository;
-import java.util.Collection;
+import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+@Service
 public class FacultyService {
 
     private final FacultyRepository facultyRepository;
@@ -17,10 +19,13 @@ public class FacultyService {
         return facultyRepository.save(faculty);
     }
     public Faculty findFaculty(long id){
-        return facultyRepository.findById(id).get();
+        return facultyRepository.findById(id).orElse(null);
     }
     public Faculty editFaculty(Faculty faculty){
-        return facultyRepository.save(faculty);
+        if (findFaculty(faculty.getId()) != null) {
+            return facultyRepository.save(faculty);
+        }
+        return null;
     }
     public void deleteFaculty(long id){
         facultyRepository.deleteById(id);
