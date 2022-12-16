@@ -1,6 +1,7 @@
 package com.example.dz_3_3.controller;
 
 import com.example.dz_3_3.model.Faculty;
+import com.example.dz_3_3.model.Student;
 import com.example.dz_3_3.service.FacultyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,9 @@ public class FacultyController {
     public FacultyController(FacultyService facultyService) {
         this.facultyService = facultyService;
     }
+
     @GetMapping("{id}")
-    public ResponseEntity<Faculty> getFaculty (@PathVariable long id) {
+    public ResponseEntity<Faculty> getFaculty(@PathVariable long id) {
         Faculty faculty = facultyService.findFaculty(id);
         if (faculty == null) {
             return ResponseEntity.notFound().build();
@@ -51,5 +53,10 @@ public class FacultyController {
             return ResponseEntity.ok(facultyService.findByColor(color));
         }
         return ResponseEntity.ok(Collections.emptyList());
+    }
+
+    public ResponseEntity<Collection<Faculty>> getFacultyByNameOrColor(@RequestParam String name, @RequestParam String color) {
+        Collection<Faculty> findFaculty = facultyService.findFacultiesByNameOrColor(name, color);
+        return ResponseEntity.ok(findFaculty);
     }
 }

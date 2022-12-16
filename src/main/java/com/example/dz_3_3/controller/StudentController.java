@@ -45,4 +45,9 @@ public class StudentController {
         }
         return ResponseEntity.ok(Collections.emptyList());
     }
+
+    public ResponseEntity<Collection<Student>> getStudentByAgeBetween(@RequestParam Integer min, @RequestParam Integer max){
+        Collection<Student> findStudents = studentService.findStudentByAgeBetween(min, max);
+        return ResponseEntity.ok(findStudents);
+    }
 }
