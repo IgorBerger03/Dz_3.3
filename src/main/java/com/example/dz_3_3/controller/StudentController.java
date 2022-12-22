@@ -1,5 +1,6 @@
 package com.example.dz_3_3.controller;
 
+import com.example.dz_3_3.model.Faculty;
 import com.example.dz_3_3.model.Student;
 import com.example.dz_3_3.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,15 +40,24 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
     @GetMapping
-    public ResponseEntity<Collection<Student>> findStudents(@RequestParam(required = false) int age) {
+    public ResponseEntity<Collection<Student>> findStudents(@RequestParam int age) {
         if (age > 0) {
             return ResponseEntity.ok(studentService.findByAge(age));
         }
         return ResponseEntity.ok(Collections.emptyList());
     }
 
+    @GetMapping("ages")
     public ResponseEntity<Collection<Student>> getStudentByAgeBetween(@RequestParam Integer min, @RequestParam Integer max){
         Collection<Student> findStudents = studentService.findStudentByAgeBetween(min, max);
         return ResponseEntity.ok(findStudents);
     }
+
+    @GetMapping("{id}/faculty")
+    public ResponseEntity<Faculty> getFacultyByStudent(@PathVariable Long id) {
+        Faculty foundFaculty = studentService.getFacultyByStudent(id);
+        return ResponseEntity.ok(foundFaculty);
+    }
+
+
 }

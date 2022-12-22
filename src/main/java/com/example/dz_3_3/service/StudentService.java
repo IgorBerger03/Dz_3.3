@@ -1,6 +1,8 @@
 package com.example.dz_3_3.service;
 
+import com.example.dz_3_3.model.Faculty;
 import com.example.dz_3_3.model.Student;
+import com.example.dz_3_3.repository.FacultyRepository;
 import com.example.dz_3_3.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +11,12 @@ import java.util.Collection;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
+    private final FacultyRepository facultyRepository;
 
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository,
+                          FacultyRepository facultyRepository) {
         this.studentRepository = studentRepository;
+        this.facultyRepository = facultyRepository;
     }
 
     public Student addStudent(Student student){
@@ -35,5 +40,9 @@ public class StudentService {
     }
     public Collection<Student> findStudentByAgeBetween(Integer min, Integer max){
         return studentRepository.findByAgeBetween(min, max);
+    }
+
+    public Faculty getFacultyByStudent(Long id) {
+        return findStudent(id).getFaculty();
     }
 }

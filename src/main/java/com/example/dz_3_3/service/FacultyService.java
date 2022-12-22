@@ -1,7 +1,9 @@
 package com.example.dz_3_3.service;
 
 import com.example.dz_3_3.model.Faculty;
+import com.example.dz_3_3.model.Student;
 import com.example.dz_3_3.repository.FacultyRepository;
+import com.example.dz_3_3.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -9,9 +11,12 @@ import java.util.Collection;
 public class FacultyService {
 
     private final FacultyRepository facultyRepository;
+    private final StudentRepository studentRepository;
 
-    public FacultyService(FacultyRepository facultyRepository) {
+    public FacultyService(FacultyRepository facultyRepository,
+                          StudentRepository studentRepository) {
         this.facultyRepository = facultyRepository;
+        this.studentRepository = studentRepository;
     }
 
 
@@ -34,7 +39,11 @@ public class FacultyService {
     public Collection<Faculty> findByColor(String color) {
         return facultyRepository.findAllByColor(color);
     }
-    public Collection<Faculty> findFacultiesByNameOrColor(String name, String color){
-        return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
+    public Collection<Faculty> findFacultiesByNameOrColor(String nameOrColor){
+        return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(nameOrColor, nameOrColor);
+    }
+
+    public Collection<Student> getStudentsByFacultyId(Long id) {
+        return studentRepository.findStudentByFacultyId(id);
     }
 }
