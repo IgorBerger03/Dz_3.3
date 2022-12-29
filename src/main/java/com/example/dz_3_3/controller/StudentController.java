@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -108,6 +109,21 @@ public class StudentController {
             is.transferTo(os);
         }
     }
+    @GetMapping(value = "/amount-of-all-students")
+    public Long getAmountOfAllStudents() {
+        return studentService.getAmountOfAllStudents();
+    }
+
+    @GetMapping(value = "/average-age-of-all-students")
+    public double getAverageOfAllStudents() {
+        return studentService.getAverageOfAllStudents();
+    }
+
+    @GetMapping(value = "/last-five-students")
+    public List<Student> getLastFiveStudents() {
+        return studentService.getFiveLastStudents();
+    }
+
 
 
 }

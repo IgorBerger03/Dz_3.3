@@ -7,6 +7,7 @@ import com.example.dz_3_3.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class StudentService {
@@ -44,5 +45,16 @@ public class StudentService {
 
     public Faculty getFacultyByStudent(Long id) {
         return findStudent(id).getFaculty();
+    }
+    public Long getAmountOfAllStudents() {
+        return studentRepository.getAmountOfAllStudents();
+    }
+
+    public double getAverageOfAllStudents() {
+        return studentRepository.getAverageOfAllStudents();
+    }
+
+    public List<Student> getFiveLastStudents() {
+        return studentRepository.getLastFiveStudents();
     }
 }
