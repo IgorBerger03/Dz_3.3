@@ -6,7 +6,6 @@ import com.example.dz_3_3.model.Student;
 import com.example.dz_3_3.service.AvatarService;
 import com.example.dz_3_3.service.StudentService;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,6 +27,7 @@ import java.util.List;
 public class StudentController {
     private final StudentService studentService;
     private final AvatarService avatarService;
+
 
     public StudentController(StudentService studentService, AvatarService avatarService) {
         this.studentService = studentService;
