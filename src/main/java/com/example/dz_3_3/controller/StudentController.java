@@ -3,6 +3,7 @@ package com.example.dz_3_3.controller;
 import com.example.dz_3_3.model.Avatar;
 import com.example.dz_3_3.model.Faculty;
 import com.example.dz_3_3.model.Student;
+import com.example.dz_3_3.repository.StudentRepository;
 import com.example.dz_3_3.service.AvatarService;
 import com.example.dz_3_3.service.StudentService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,17 +22,21 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/student")
 public class StudentController {
     private final StudentService studentService;
     private final AvatarService avatarService;
+    private final StudentRepository studentRepository;
 
 
-    public StudentController(StudentService studentService, AvatarService avatarService) {
+    public StudentController(StudentService studentService, AvatarService avatarService,
+                             StudentRepository studentRepository) {
         this.studentService = studentService;
         this.avatarService = avatarService;
+        this.studentRepository = studentRepository;
     }
 
     @GetMapping("{id}")
@@ -123,7 +128,5 @@ public class StudentController {
     public List<Student> getLastFiveStudents() {
         return studentService.getFiveLastStudents();
     }
-
-
 
 }

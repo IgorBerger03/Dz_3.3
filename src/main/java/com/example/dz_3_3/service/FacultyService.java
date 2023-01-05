@@ -6,9 +6,13 @@ import com.example.dz_3_3.repository.FacultyRepository;
 import com.example.dz_3_3.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.Optional;
+
 @Service
 public class FacultyService {
 
@@ -57,5 +61,19 @@ public class FacultyService {
     public Collection<Student> getStudentsByFacultyId(Long id) {
         logger.info("Was invoked method for find students by faculty id");
         return studentRepository.findStudentByFacultyId(id);
+    }
+
+    public ResponseEntity<String> getFacultyNameWithMaxLength(){
+        logger.info("Was invoked method for find faculty name with max length");
+        Optional<String> maxFacultyName = facultyRepository.findAll().stream()
+                .map(Faculty :: getName)
+                .max(Comparator.comparing(String::length));
+        if (maxFacultyName.isEmpty()) {
+            logger.error("There is no faculties at all");
+            return ResponseEntity.notFound().build();
+        } else {
+            logger.debug("Faculty name with max length:{}", maxFacultyName.get());
+            return ResponseEntity.ok(maxFacultyName.get());
+        }
     }
 }
