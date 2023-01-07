@@ -89,6 +89,44 @@ public class StudentService {
     }
 
     public Collection<Student> getAll(){
+        logger.info("Was invoked method for getting all students");
         return studentRepository.findAll();
     }
+    public void getAllStudentsInThreads() {
+        logger.info("Was invoked method for getting all students");
+        List<Student> allStudents = studentRepository.findAll();
+        System.out.println(allStudents.get(0));
+        System.out.println(allStudents.get(1));
+
+        new Thread(() -> {
+            System.out.println(allStudents.get(2));
+            System.out.println(allStudents.get(3));
+        }).start();
+
+        new Thread(() -> {
+            System.out.println(allStudents.get(4));
+            System.out.println(allStudents.get(5));
+        }).start();
+    }
+
+    public synchronized void printStudents(Student student, Student student1) {
+        System.out.println(student.toString());
+        System.out.println(student1.toString());
+    }
+
+    public void getAllStudentsInThreadsSync() {
+        logger.info("Was invoked method for getting all students");
+        List<Student> allStudents = studentRepository.findAll();
+
+        printStudents(allStudents.get(0),allStudents.get(1));
+
+        new Thread(() -> {
+            printStudents(allStudents.get(2), allStudents.get(3));
+        }).start();
+
+        new Thread(() -> {
+            printStudents(allStudents.get(4), allStudents.get(5));
+        }).start();
+    }
+
 }

@@ -129,4 +129,14 @@ public class StudentController {
         return studentService.getFiveLastStudents();
     }
 
+    @GetMapping("/threads")
+    public void getAllStudentsInThreads() {
+        studentService.getAllStudentsInThreads();
+    }
+
+    @GetMapping("/threads-sync")
+    public void getAllStudentsInThreadsSync() {
+        studentService.getAllStudentsInThreadsSync();
+    }
+
 }
